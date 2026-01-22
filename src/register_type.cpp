@@ -1,12 +1,6 @@
 #include "register_types.h"
 
-#include <gdextension_interface.h>
-
-#include <godot_cpp/core/class_db.hpp>
-#include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
-#include <godot_cpp/variant/utility_functions.hpp>
-#include <godot_cpp/classes/xr_server.hpp>
 
 #include "xr_interface_reference.h"
 
@@ -28,16 +22,30 @@ void uninitialize_xrreference_module(ModuleInitializationLevel p_level) {
 	// Note: our class will be unregistered automatically
 }
 
+static Ref<XRInterfaceReference> xr_interface;
+
+static void xrreference_startup_callback() {
+	xr_interface.instantiate();
+	XRServer::get_singleton()->add_interface(xr_interface);
+}
+
+static void xrreference_shutdown_callback() {
+	XRServer::get_singleton()->remove_interface(xr_interface);
+}
+
 extern "C" {
 
 // Initialization.
 
-GDExtensionBool GDE_EXPORT xrreference_library_init(const GDExtensionInterface *p_interface, const GDExtensionClassLibraryPtr p_library, GDExtensionInitialization *r_initialization) {
-	GDExtensionBinding::InitObject init_obj(p_interface, p_library, r_initialization);
+GDExtensionBool GDE_EXPORT xrreference_library_init(GDExtensionInterfaceGetProcAddress p_get_proc_address, GDExtensionClassLibraryPtr p_library, GDExtensionInitialization *r_initialization) {
+	godot::GDExtensionBinding::InitObject init_obj(p_get_proc_address, p_library, r_initialization);
 
 	init_obj.register_initializer(initialize_xrreference_module);
 	init_obj.register_terminator(uninitialize_xrreference_module);
 	init_obj.set_minimum_library_initialization_level(MODULE_INITIALIZATION_LEVEL_SERVERS);
+
+	init_obj.register_startup_callback(xrreference_startup_callback);
+	init_obj.register_shutdown_callback(xrreference_shutdown_callback);
 
 	return init_obj.init();
 }

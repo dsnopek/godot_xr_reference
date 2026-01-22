@@ -1,11 +1,8 @@
-#ifndef XR_INTERFACE_REFERENCE_H
-#define XR_INTERFACE_REFERENCE_H
+#pragma once
 
 #include <godot_cpp/classes/xr_interface_extension.hpp>
-
-#include <godot_cpp/core/binder_common.hpp>
-#include <godot_cpp/classes/xr_server.hpp>
 #include <godot_cpp/classes/xr_positional_tracker.hpp>
+#include <godot_cpp/classes/xr_server.hpp>
 
 namespace godot {
 
@@ -83,11 +80,11 @@ public:
 	virtual Transform3D _get_camera_transform() override;
 	virtual Transform3D _get_transform_for_view(uint32_t p_view, const Transform3D &p_cam_transform) override;
 	virtual PackedFloat64Array _get_projection_for_view(uint32_t p_view, double p_aspect, double p_z_near, double p_z_far) override;
-	
+
 	virtual void _post_draw_viewport(const RID &p_render_target, const Rect2 &p_screen_rect) override;
 
 	virtual void _process() override;
-	
+
 	virtual bool _get_anchor_detection_is_enabled() const override;
 	virtual void _set_anchor_detection_is_enabled(bool enabled) override;
 	virtual int32_t _get_camera_feed_id() const override;
@@ -96,5 +93,3 @@ public:
 	~XRInterfaceReference();
 };
 } // namespace godot
-
-#endif // ! XR_INTERFACE_REFERENCE_H

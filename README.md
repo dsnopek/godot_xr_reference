@@ -28,48 +28,15 @@ For convencience I've added my `tasks.json` build configuration for `vscode` int
 
 The demo folder contains an example project that implement this interface and is used as the build destination when compiling the plugin.
 
-# Registering the XRInterface
-
-In order for your interface to be accessible within Godot it has to be registered with the XRServer.
-As the XRServer isn't accessibly from GDExtensions until after registration has been completed, even though it does exist beforehand, we'll need to handle this with a script.
-
-To ensure the interface is also properly cleaned up we'll create this as an autoload script.
-Note that this is marked as a toolscript to ensure the IDE can access meta data provided by the interface.
-
-```
-@tool
-extends Node
-
-var xr_interface : XRInterfaceReference
-
-func get_interface():
-	return xr_interface
-
-
-func _enter_tree():
-	xr_interface = XRInterfaceReference.new()
-	if xr_interface:
-		XRServer.add_interface(xr_interface)
-
-
-func _exit_tree():
-	if xr_interface:
-		XRServer.remove_interface(xr_interface)
-		xr_interface = null
-```
-
-You can register this script on the autoload tab in the project settings like so:
-![autoload](autoload.png "Autoload project settings")
-
-Note that the demo project also contains a `plugin.cfg` and `plugin.gd` script that will trigger automatic registration of the autoload script. This serves purely as an example and is optional.
-
 # Initialising the interface
 
-To use the interface it has to be initialised. This code is similar to that of other XR interfaces in Godot.
+To use the interface it has to be initialised. This code is similar to that of other XR interfaces in Godot:
 
-You can do all thats needed in you main script however in our demo a convencience function was added to our autoload script:
 ```
+var xr_interface: XRInterfaceReference
+
 func start_xr():
+	var xr_interface = XRServer.find_interface("XR Reference");
 	if xr_interface:
 		print("Capabilities " + str(xr_interface.get_capabilities()))
 		print("Target size " + str(xr_interface.get_render_target_size()))
@@ -82,13 +49,6 @@ func start_xr():
 			print("Failed to initialise")
 	else:
 		print("Interface was not instantiated")
-```
-
-This can now be called from our main script:
-
-```
-func _ready():
-	XRReferenceInterface.start_xr()
 ```
 
 # About the author
