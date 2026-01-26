@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4inay0af44y5"]
+[gd_scene format=3 uid="uid://c4inay0af44y5"]
 
-[ext_resource type="Script" path="res://Main.gd" id="1_86b4p"]
-[ext_resource type="Script" path="res://Hud.gd" id="2_bnd5b"]
-[ext_resource type="Material" path="res://assets/wahooney.itch.io/blue_grid.tres" id="2_hf54b"]
-[ext_resource type="Material" path="res://assets/wahooney.itch.io/green_grid.tres" id="3_kb4h0"]
+[ext_resource type="Script" uid="uid://cjncoeuagkbjo" path="res://Main.gd" id="1_86b4p"]
+[ext_resource type="Script" uid="uid://bw2rlre0f4tgg" path="res://Hud.gd" id="2_bnd5b"]
+[ext_resource type="Material" uid="uid://bhmhn5503bn14" path="res://assets/wahooney.itch.io/blue_grid.tres" id="2_hf54b"]
+[ext_resource type="Material" uid="uid://gtwcgkudlc4v" path="res://assets/wahooney.itch.io/green_grid.tres" id="3_kb4h0"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_aaq4s"]
 
@@ -19,36 +19,36 @@ sky = SubResource("Sky_isho0")
 [sub_resource type="PlaneMesh" id="PlaneMesh_f4jca"]
 size = Vector2(1000, 1000)
 
-[node name="Main" type="Node3D"]
+[node name="Main" type="Node3D" unique_id=932727345]
 script = ExtResource("1_86b4p")
 
-[node name="XROrigin3D" type="XROrigin3D" parent="."]
+[node name="XROrigin3D" type="XROrigin3D" parent="." unique_id=1255546704]
 
-[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D" unique_id=1260654137]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
-[node name="Hud" type="Node3D" parent="XROrigin3D"]
+[node name="Hud" type="Node3D" parent="XROrigin3D" unique_id=1066729778]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 script = ExtResource("2_bnd5b")
 camera = NodePath("../XRCamera3D")
 
-[node name="FPS" type="Label3D" parent="XROrigin3D/Hud"]
+[node name="FPS" type="Label3D" parent="XROrigin3D/Hud" unique_id=669032761]
 transform = Transform3D(0.85828, 0, 0.513182, 0, 1, 0, -0.513182, 0, 0.85828, -0.491584, 0.307667, -0.697151)
 text = "FPS: 000"
 font_size = 16
 outline_size = 6
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1323037250]
 transform = Transform3D(0.760915, -0.456129, 0.461471, 0.0679668, 0.76333, 0.642423, -0.645282, -0.457465, 0.611831, 0.404205, 2.29081, 0)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=236411144]
 environment = SubResource("Environment_nkj1m")
 
-[node name="Cube" type="MeshInstance3D" parent="."]
+[node name="Cube" type="MeshInstance3D" parent="." unique_id=127814663]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.80584, 1, -5.83298)
 mesh = SubResource("BoxMesh_8mt8t")
 surface_material_override/0 = ExtResource("2_hf54b")
 
-[node name="Ground" type="MeshInstance3D" parent="."]
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=1871489157]
 mesh = SubResource("PlaneMesh_f4jca")
 surface_material_override/0 = ExtResource("3_kb4h0")

@@ -1,6 +1,9 @@
 # msvc debug files
 *.idb
 *.pdb
+*.o
+*.os
+*.obj
 
 # scons files
 *.sconsign.dblite

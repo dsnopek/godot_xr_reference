@@ -1,0 +1,11 @@
+{
+	"enabled_classes": [
+		"DisplayServer",
+		"Input",
+		"OS",
+		"XRPose",
+		"XRPositionalTracker",
+		"XRServer",
+		"XRInterfaceExtension"
+	]
+}
